@@ -653,7 +653,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
 
   //show the panel (in collapsed mode)
   Future<void> _show() {
-    return _ac.fling(velocity: -1.0).then((x) {
+    return _ac.fling(velocity: 1.0).then((x) {
       setState(() {
         _isPanelVisible = true;
       });

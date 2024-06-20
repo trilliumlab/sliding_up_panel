@@ -4,9 +4,10 @@
 [![Platform](https://img.shields.io/badge/platform-android%20|%20ios-green.svg)](https://img.shields.io/badge/platform-Android%20%7C%20iOS-green.svg)
 
 A fork of [this](https://github.com/akshathjain/sliding_up_panel) with new features.
-
+<ul>
+  <li>Add animated minimization (moves below the screen</li>
+</ul>
 A draggable Flutter widget that makes implementing a SlidingUpPanel much easier! Based on the Material Design bottom sheet component, this widget works on both Android & iOS.
-
 <p>
   <img width="205px" alt="Example" src="https://raw.githubusercontent.com/Zotov-VD/sliding_up_panel/master/screenshots/example.gif"/>
   <img width="220px" alt="Example App Closed" src="https://raw.githubusercontent.com/Zotov-VD/sliding_up_panel/master/screenshots/exampleclosed.png"/>

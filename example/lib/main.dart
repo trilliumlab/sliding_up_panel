@@ -225,12 +225,11 @@ class _HomePageState extends State<HomePage> {
                     "Popular",
                     Icons.favorite,
                     Colors.blue,
-                    () => {
-                          panelController.forseScrollChange(
+                    () => panelController.forceScrollChange(
                               scrollController.animateTo(100,
                                   duration: Duration(milliseconds: 400),
                                   curve: Curves.ease))
-                        }),
+                ),
                 _button("Food", Icons.restaurant, Colors.red, () => {}),
                 _button("Events", Icons.event, Colors.amber, () => {}),
                 _button("More", Icons.more_horiz, Colors.green, () => {}),

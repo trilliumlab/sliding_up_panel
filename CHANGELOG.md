@@ -1,3 +1,7 @@
+## [4.0.0] - [June 28, 2024]
+- Correct forseScrollChange to forceScrollChange
+- Add hidden state below visible frame 
+
 ## [3.3.0+1] - [March 8, 2023]
 - remove prints
 

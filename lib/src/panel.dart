@@ -673,20 +673,18 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
   //hide the panel (completely offscreen)
   Future<void> _hide() {
     return _ac.fling(velocity: -1.0).then((x) {
-      setState(() {
-        _isPanelVisible = false;
-      });
     });
   }
 
   //show the panel (in collapsed mode)
-  Future<void> _show() {
-    // _ac.value = 0.0;
-    setState(() {
-        _isPanelVisible = true;
-      });
-    return _ac.animateTo(_closeFraction, duration: Duration(milliseconds: 100));
-  }
+  
+  // Future<void> _show() {
+  //   // _ac.value = 0.0;
+  //   setState(() {
+  //       _isPanelVisible = true;
+  //     });
+  //   return _ac.animateTo(_closeFraction, duration: Duration(milliseconds: 100));
+  // }
 
   //animate the panel position to value - must
   //be between 0.0 and 1.0
@@ -788,11 +786,11 @@ class PanelController {
     return _panelState!._hide();
   }
 
-  /// Shows the sliding panel in its collapsed state and makes it visible
-  Future<void> show() {
-    assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._show();
-  }
+  // /// Shows the sliding panel in its collapsed state and makes it visible
+  // Future<void> show() {
+  //   assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
+  //   return _panelState!._show();
+  // }
 
   /// Animates the panel position to the value.
   /// The value must between 0.0 and 1.0

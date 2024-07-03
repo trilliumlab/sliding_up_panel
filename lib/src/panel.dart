@@ -374,7 +374,7 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
                         color: _ac.value <= _collapseFraction + 0.001
                             ? null
                             : widget.backdropColor.withOpacity(
-                                widget.backdropOpacity * _pastCollapsePosition),
+                                widget.backdropOpacity * ((_ac.value - _collapseFraction) / (1 - _collapseFraction)).clamp(0, 1)),
                       );
                     }),
               ),
@@ -411,12 +411,8 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
                         ? 0.0
                         : null,
                     width: MediaQuery.of(context).size.width -
-                        (widget.margin != null
-                            ? widget.margin!.horizontal
-                            : 0) -
-                        (widget.padding != null
-                            ? widget.padding!.horizontal
-                            : 0),
+                        (widget.margin?.horizontal ?? 0) -
+                        (widget.padding?.horizontal ?? 0),
                     child: Container(
                       height: widget.maxHeight,
                       child: widget.panelBuilder!(),
@@ -458,12 +454,8 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
                       ? 0.0
                       : null,
                   width: MediaQuery.of(context).size.width -
-                      (widget.margin != null
-                          ? widget.margin!.horizontal
-                          : 0) -
-                      (widget.padding != null
-                          ? widget.padding!.horizontal
-                          : 0),
+                      (widget.margin?.horizontal ?? 0) -
+                      (widget.padding?.horizontal ?? 0),
                   child: Container(
                     height: widget.minHeight,
                     child: widget.collapsed == null
@@ -788,12 +780,6 @@ class _SlidingUpPanelState extends State<SlidingUpPanel>
   
   // Returns whether or not the panel is hidden
   bool get _isPanelHidden => _ac.value <= 0.001;
-
-  // Returns the position from 0.0 to 1.0 between the snap and open positions
-  double get _pastSnapPosition => ((_ac.value - _snapFraction!) / (1 - _snapFraction!)).clamp(0, 1);
-  
-  // Returns the position from 0.0 to 1.0 between the collapsed and open positions
-  double get _pastCollapsePosition => ((_ac.value - _collapseFraction) / (1 - _snapFraction!)).clamp(0, 1);
   
   // Returns the current height in pixels of the panel 
   double get _panelHeight => _panelPosition * widget.maxHeight;
@@ -929,39 +915,25 @@ class PanelController {
   /// Returns whether or not the panel is in the open state.
   bool get isPanelOpen {
     assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._isPanelOpen;
+    return _panelState!._isPanelOpen && !_panelState!._isPanelAnimating;
   }
 
   /// Returns whether or not the panel is in the snapped state.
   bool get isPanelSnapped {
     assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._isPanelSnapped;
+    return _panelState!._isPanelSnapped && !_panelState!._isPanelAnimating;
   }
 
   /// Returns whether or not the panel is in the collapsed state.
   bool get isPanelCollapsed {
     assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._isPanelCollapsed;
+    return _panelState!._isPanelCollapsed && !_panelState!._isPanelAnimating;
   }
 
   /// Returns whether or not the panel is in the hidden state.
   bool get isPanelHidden {
     assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._isPanelHidden;
-  }
-
-  /// Returns the percentage from 0.0 to 1.0 of the panel's position
-  /// between the open and snapped positions
-  double get pastSnapPosition {
-    assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._pastSnapPosition;
-  }
-
-  /// Returns the percentage from 0.0 to 1.0 of the panel's position
-  /// between the open and collapsed positions
-  double get pastCollapsePosition {
-    assert(isAttached, "PanelController must be attached to a SlidingUpPanel");
-    return _panelState!._pastCollapsePosition;
+    return _panelState!._isPanelHidden && !_panelState!._isPanelAnimating;
   }
   
   /// Returns the height of the panel in pixels
